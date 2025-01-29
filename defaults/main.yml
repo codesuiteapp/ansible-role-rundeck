@@ -1,7 +1,7 @@
 ---
 image_registry_server: "docker.io"
 rundeck_image: "rundeck/rundeck"
-rundeck_ver: "latest"
+rundeck_ver: "5.8.0"
 container_name: rundeck
 rundeck_port: 4440
 use_mysql: false
@@ -27,6 +27,8 @@ app_logs_dir: /log
 
 rundeck_home: "{{ app_home_dir }}/rundeck-docker"
 rundeck_data: "{{ app_data_dir }}/rundeck"
+rundeck_data_cfg: "{{ rundeck_data }}/config"
+rundeck_data_dat: "{{ rundeck_data }}/data"
 rundeck_logs: "{{ app_logs_dir }}/rundeck"
 rundeck_mysql_data: "{{ app_data_dir }}/rundeck-mysql"
 

@@ -30,7 +30,8 @@ services:
     ports:
       - "{{ rundeck_port }}:4440"
     volumes:
-      - {{ rundeck_data }}:/home/rundeck/server/data
+      - {{ rundeck_data_cfg }}:/home/rundeck/server/config
+      - {{ rundeck_data_dat }}:/home/rundeck/server/data
     restart: unless-stopped
 {% if use_extra_hosts %}
     extra_hosts:

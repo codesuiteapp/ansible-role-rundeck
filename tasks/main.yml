@@ -8,7 +8,8 @@
     mode: '0775'
   loop:
     - "{{ rundeck_home }}"
-    - "{{ rundeck_data }}"
+    - "{{ rundeck_data_cfg }}"
+    - "{{ rundeck_data_dat }}"
 
 - name: Copy and template files
   ansible.builtin.template:
