@@ -1,0 +1,36 @@
+---
+image_registry_server: "docker.io"
+rundeck_image: "rundeck/rundeck"
+rundeck_ver: "latest"
+container_name: rundeck
+rundeck_port: 4440
+use_mysql: false
+mysql_image: "mysql"
+mysql_ver: "latest"
+mysql_svc_name: "mysql"
+rundeck_db_port: 3306
+rundeck_db_url: rundeck
+rundeck_db_user: rundeck
+rundeck_db_password: Asdfg11
+
+docker_compose_bin: "docker-compose"
+use_dkr_net: false
+use_traefik: false
+use_traefik_tls: false
+dkr_network: devops_net
+use_extra_hosts: false
+add_etc_host: "10.11.22.10   devops.com"
+
+app_home_dir: /app
+app_data_dir: /data
+app_logs_dir: /log
+
+rundeck_home: "{{ app_home_dir }}/rundeck-docker"
+rundeck_data: "{{ app_data_dir }}/rundeck"
+rundeck_logs: "{{ app_logs_dir }}/rundeck"
+rundeck_mysql_data: "{{ app_data_dir }}/rundeck-mysql"
+
+create_user: false
+adm_user: "appadm"
+adm_group: "appadm"
+adm_uid: "1000"

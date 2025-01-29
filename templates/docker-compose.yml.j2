@@ -1,0 +1,48 @@
+services:
+{% if use_mysql %}
+  {{ mysql_svc_name }}:
+    image: ${MYSQL_DOCKER_IMAGE}
+    hostname: {{ mysql_svc_name }}
+    environment:
+      - "MYSQL_RANDOM_ROOT_PASSWORD=yes"
+    ports:
+      - {{ rundeck_db_port }}:3306
+    volumes:
+      - {{ rundeck_mysql_data }}:/var/lib/mysql
+    restart: unless-stopped
+{% if use_dkr_net %}
+    networks:
+      - {{ dkr_network }}
+{% endif %}
+{% endif %}
+  rundeck:
+    image: ${DOCKER_IMAGE}
+    container_name: rundeck
+    user: root
+    environment:
+      - TZ=Asia/Seoul
+{% if use_mysql %}
+      - "RUNDECK_DATABASE_DRIVER=org.mariadb.jdbc.Driver"
+      - "RUNDECK_DATABASE_URL={{ rundeck_db_url }}"
+      - "RUNDECK_DATABASE_USERNAME={{ rundeck_db_user }}"
+      - "RUNDECK_DATABASE_PASSWORD={{ rundeck_db_password }}"
+{% endif %}
+    ports:
+      - "{{ rundeck_port }}:4440"
+    volumes:
+      - {{ rundeck_data }}:/home/rundeck/server/data
+    restart: unless-stopped
+{% if use_extra_hosts %}
+    extra_hosts:
+    {% for host in extra_hosts %}
+    - {{ host }}
+    {% endfor %}
+{% endif %}
+{% if use_dkr_net %}
+    networks:
+      - {{ dkr_network }}
+
+networks:
+  {{ dkr_network }}:
+    external: true
+{% endif %}
